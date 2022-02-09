@@ -53,10 +53,10 @@ def handle_signup():
     else:
         return jsonify({"message": "oops, could not create user :(, please try again"}), 500
 
-@app.route('/signin', methods=['POST'])
+@app.route('/login', methods=['POST'])
 def handle_signin():
-    email = request.json("email", None)
-    password = request.json("password", None)
+    email = request.json["email"]
+    password = request.json["password"]
     user = User.query.filter_by(email = email, password = password).one_or_none()
     if user is not None:
         token = create_access_token(identity = user.id)
